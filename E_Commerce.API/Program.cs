@@ -1,20 +1,30 @@
 
+using E_Commerce.API.Extensions;
+using E_Commerce.Infrastructure;
+using System.Threading.Tasks;
+
 namespace E_Commerce.API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
 
             builder.Services.AddControllers();
+
+            builder.Services.AddInfrastructureServices(builder.Configuration);
+
+
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();
+
+             await app.InitializeDatabaseAsync();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
