@@ -18,6 +18,8 @@ namespace E_Commerce.Domain.Contracts
 
         Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken ct);
         Task<IReadOnlyList<TEntity>> GetAllAsync(ISpecification<TEntity, TKey> spec, CancellationToken ct);
+        Task<int> GetCountAsync(ISpecification<TEntity, TKey> spec, CancellationToken ct);
+
 
 
     }

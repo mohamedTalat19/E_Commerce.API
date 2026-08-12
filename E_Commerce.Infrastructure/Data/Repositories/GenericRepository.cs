@@ -37,6 +37,13 @@ namespace E_Commerce.Infrastructure.Data.Repositories
             return await fullQuery.FirstOrDefaultAsync(ct);
         }
 
+        public async Task<int> GetCountAsync(ISpecification<TEntity, TKey> spec, CancellationToken ct)
+        {
+            var baseQuery = _dbContext.Set<TEntity>();
+            var fullQuery = SpecificationEvaluator.CreateQuery(baseQuery, spec);
+            return await fullQuery.CountAsync(ct);
+        }
+
         public void Remove(TEntity entity)
            => _dbContext.Set<TEntity>().Remove(entity);
 

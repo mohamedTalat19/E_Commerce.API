@@ -11,7 +11,7 @@ namespace E_Commerce.Application.Contracts
     public interface IProductService
     {
         //Get Products
-        Task<Result<IReadOnlyList<ProductDto>>> GetAllProductAsync(CancellationToken ct);
+        Task<Result<PaginatedResult<ProductDto>>> GetAllProductAsync(ProductQueryParams request, CancellationToken ct);
   
         //Get Product
         Task<Result<ProductDto>> GetProductByIdAsync(int id, CancellationToken ct);
