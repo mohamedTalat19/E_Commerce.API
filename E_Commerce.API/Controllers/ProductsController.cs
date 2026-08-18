@@ -1,4 +1,5 @@
-﻿using E_Commerce.Application.Common;
+﻿using E_Commerce.API.Attributes;
+using E_Commerce.Application.Common;
 using E_Commerce.Application.Contracts;
 using E_Commerce.Application.DTOs.ProductDTOs;
 using Microsoft.AspNetCore.Http;
@@ -19,6 +20,7 @@ namespace E_Commerce.API.Controllers
 
         //get products
         [HttpGet]
+        [RedisCache(60)]
         public async Task<ActionResult<PaginatedResult<ProductDto>>> GetProducts([FromQuery] ProductQueryParams request ,CancellationToken ct)
         {
             var result = await _productService.GetAllProductAsync(request,ct);

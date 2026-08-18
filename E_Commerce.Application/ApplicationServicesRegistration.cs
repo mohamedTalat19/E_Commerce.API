@@ -17,6 +17,9 @@ namespace E_Commerce.Application
 
             services.AddScoped<IProductService, ProductService>();
 
+            services.AddScoped<IBasketService, BasketService>();
+            services.AddScoped<ICacheService, CacheService>();
+
             return services;
         }
     }
