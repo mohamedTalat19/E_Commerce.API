@@ -1,5 +1,6 @@
 ﻿using E_Commerce.Domain.Contracts;
 using E_Commerce.Domain.Entities;
+using E_Commerce.Domain.Entities.Orders;
 using E_Commerce.Domain.Entities.ProductEntities;
 using E_Commerce.Infrastructure.Data.DbContexts;
 using Microsoft.EntityFrameworkCore;
@@ -28,6 +29,8 @@ namespace E_Commerce.Infrastructure.Data.DataSeeders
             await SeedIfEmpty<ProductType, int>(rootPath, "types.json", ct);
             await SeedIfEmpty<ProductBrand, int>(rootPath, "brands.json", ct);
             await SeedIfEmpty<Product, int>(rootPath, "products.json", ct);
+            await SeedIfEmpty<DeliveryMethod, int>(rootPath, "delivery.json", ct);
+
         }
 
         private async Task SeedIfEmpty<TEntity , TKey>(string rootPath, string fileName, CancellationToken ct)
