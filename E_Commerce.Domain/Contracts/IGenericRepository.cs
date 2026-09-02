@@ -13,14 +13,12 @@ namespace E_Commerce.Domain.Contracts
         void Update(TEntity entity);
         void Remove(TEntity entity);
 
-        Task<TEntity?> GetByIdAsync(TKey id, CancellationToken ct);
-        Task<TEntity?> GetByIdAsync(ISpecification<TEntity, TKey> spec, CancellationToken ct);
+        Task<TEntity?> GetByIdAsync(TKey id, CancellationToken ct = default);
+        Task<TEntity?> GetByIdAsync(ISpecification<TEntity, TKey> spec, CancellationToken ct = default);
 
         Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken ct);
         Task<IReadOnlyList<TEntity>> GetAllAsync(ISpecification<TEntity, TKey> spec, CancellationToken ct);
         Task<int> GetCountAsync(ISpecification<TEntity, TKey> spec, CancellationToken ct);
-
-
-
+       
     }
 }

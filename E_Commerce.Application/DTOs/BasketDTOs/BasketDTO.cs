@@ -9,7 +9,11 @@ namespace E_Commerce.Application.DTOs.BasketDTOs
 {
     public class BasketDTO
     {
-        public string Id { get; set; }
-        public ICollection<BasketItem> Items { get; set; }
+        public string Id { get; set; } = default!;
+        public ICollection<BasketItem> Items { get; set; } = [];
+        public string? ClientSecret { get; set; }
+        public string? PaymentIntendId { get; set; }
+        public int? DeliveryMethodId { get; set; }
+        public decimal? ShippingPrice { get; set; }
     }
 }

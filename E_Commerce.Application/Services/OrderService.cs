@@ -38,7 +38,16 @@ namespace E_Commerce.Application.Services
                 return Error.NotFound("Basket Not Found", $"Basket With id {orderDTO.BasketId} Is Not Found");
 
             if(basket.Items.Count == 0)
-                return Error.Validation("Basket Is Empty", $"Can Not Create Order With Basket id {basket.Id}");
+              return Error.Validation("Basket Is Empty", $"Can Not Create Order With Basket id {basket.Id}");
+
+
+            var exOrder = await _unitOfWork.GetRepository<Order, Guid>()
+                .GetByIdAsync(new PaymentIntentSpec(basket.PaymentIntendId), ct);
+
+            if (exOrder != null)
+                _unitOfWork.GetRepository<Order, Guid>().Remove(exOrder);
+
+
 
             //Items (Order Item)
             var orderItems = new List<OrderItem>(basket.Items.Count);
@@ -78,7 +87,7 @@ namespace E_Commerce.Application.Services
             var subTotal = orderItems.Sum(x => x.Quantity * x.Price);
 
             //Create Order
-            var order = new Order(email, orderAddress, orderItems, deliveryMethod, subTotal);
+            var order = new Order(email, orderAddress, orderItems, deliveryMethod, subTotal, basket.PaymentIntendId);
 
             _unitOfWork.GetRepository<Order, Guid>().Add(order);//local
             var result = await _unitOfWork.SaveChangesAsync(ct);
